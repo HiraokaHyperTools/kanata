@@ -39,3 +39,4 @@ vendor/bundle/
 
 sftp-config.json
 
+/package-lock.json
