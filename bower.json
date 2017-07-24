@@ -12,7 +12,7 @@
     "framework",
     "web"
   ],
-  "author": "logue",
+  "author": "logue and kenjiuno",
   "homepage": "https://logue.be/",
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
   "license": "MIT",
   "moduleType": "globals",
   "main": [
-    "dist/css/bootstrap.min.css"
+    "dist/js/bootstrap.js",
+    "dist/css/bootstrap.css"
   ],
   "ignore": [
     "/.*",
