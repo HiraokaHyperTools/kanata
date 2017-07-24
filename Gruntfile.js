@@ -40,6 +40,14 @@ module.exports = function(grunt) {
 						to: '@charset "UTF-8";\n<%= banner %>'
 					}
 				]
+			},
+			bootstrap: {
+				src: ['dist/css/bootstrap**.css'],
+				overwrite: true,
+				replacements: [{
+					from: '../fonts/bootstrap/',
+					to: '../fonts/'
+				}]
 			}
 		},
 		// cssmin
@@ -249,7 +257,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('server', ['bower:install', 'getTwbsConfig', 'test', 'css', 'connect', 'watch']);
 
 	// ビルドタスク
-	grunt.registerTask('build', ['clean:build', 'bower:install', 'getTwbsConfig', 'test', 'css', 'optimize', 'replace:banner']);
+	grunt.registerTask('build', ['clean:build', 'bower:install', 'getTwbsConfig', 'test', 'css', 'optimize', 'replace:banner', 'replace:bootstrap']);
 
 	// 配布用パッケージ作成
 	grunt.registerTask('package', ['build', 'compress:main']);
