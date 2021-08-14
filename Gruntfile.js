@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
 	var pkg, bower, taskName, name;
 
@@ -11,23 +11,23 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: pkg,
 		bowerJSON: bower,
-		banner:	'/*!\n' +
-						' * <%= pkg.name %> v<%= pkg.version %>\n' +
-						' * Website <%= pkg.website %>\n' +
-						' * Copyright 2015 <%= pkg.author %>\n' +
-						' * The <%= pkg.license %> License\n' +
-						(
-							pkg.name !== "Honoka" ?
-								' * Based on Honoka (http://honokak.osaka/) by windyakin\n'
-							:
-								''
-						) +
-						' */\n' +
-						'/*!\n' +
-						' * Bootstrap v<%= twbs.version %> (<%= twbs.homepage %>)\n' +
-						' * Copyright 2011-<%= grunt.template.today("yyyy") %> <%= twbs.author %>\n' +
-						' * Licensed under the <%= twbs.license %> license\n' +
-						' */\n',
+		banner: '/*!\n' +
+			' * <%= pkg.name %> v<%= pkg.version %>\n' +
+			' * Website <%= pkg.website %>\n' +
+			' * Copyright 2015 <%= pkg.author %>\n' +
+			' * The <%= pkg.license %> License\n' +
+			(
+				pkg.name !== "Honoka" ?
+					' * Based on Honoka (http://honokak.osaka/) by windyakin\n'
+					:
+					''
+			) +
+			' */\n' +
+			'/*!\n' +
+			' * Bootstrap v<%= twbs.version %> (<%= twbs.homepage %>)\n' +
+			' * Copyright 2011-<%= grunt.template.today("yyyy") %> <%= twbs.author %>\n' +
+			' * Licensed under the <%= twbs.license %> license\n' +
+			' */\n',
 		// bannerの調整
 		replace: {
 			// バナーの追加
@@ -148,11 +148,24 @@ module.exports = function(grunt) {
 		bower: {
 			install: {
 				options: {
-					targetDir: 'dist/',
-					layout: function(type, component, source) {
-						return type;
-					}
 				}
+			}
+		},
+		// コピー
+		copy: {
+			bower: {
+				files: [
+					{
+						cwd: 'bower_components/bootstrap/dist',
+						src: [
+							'js/bootstrap.js',
+							'js/bootstrap.min.js',
+							'fonts/*'
+						],
+						dest: 'dist/',
+						expand: true
+					}
+				]
 			}
 		},
 		// ファイル更新監視
@@ -176,7 +189,7 @@ module.exports = function(grunt) {
 		compress: {
 			main: {
 				options: {
-					archive: 'data/bootstrap-'+ name +'-'+ pkg.version +'-dist.zip'
+					archive: 'data/bootstrap-' + name + '-' + pkg.version + '-dist.zip'
 				},
 				files: [
 					{
@@ -184,21 +197,21 @@ module.exports = function(grunt) {
 						expand: true,
 						cwd: "dist/css/",
 						src: ["bootstrap**.css"],
-						dest: name +"/css"
+						dest: name + "/css"
 					},
 					{
 						// Font
 						expand: true,
 						cwd: "dist/fonts/",
 						src: ["**/*"],
-						dest: name +"/fonts"
+						dest: name + "/fonts"
 					},
 					{
 						// JavaScript
 						expand: true,
 						cwd: "dist/js/",
 						src: ["bootstrap.**js"],
-						dest: name +"/js"
+						dest: name + "/js"
 					},
 					{
 						// Sample html
@@ -218,14 +231,14 @@ module.exports = function(grunt) {
 	});
 
 	// GruntFile.jsに記載されているパッケージを自動読み込み
-	for(taskName in pkg.devDependencies) {
-		if(taskName.substring(0, 6) == 'grunt-') {
+	for (taskName in pkg.devDependencies) {
+		if (taskName.substring(0, 6) == 'grunt-') {
 			grunt.loadNpmTasks(taskName);
 		}
 	}
 
 	// 本家Bootstrapのautoprefixerの設定を読み込む
-	grunt.task.registerTask('getTwbsConfig', 'Get config from bootstrap', function() {
+	grunt.task.registerTask('getTwbsConfig', 'Get config from bootstrap', function () {
 		try {
 			var configBridge = grunt.file.readJSON('bower_components/bootstrap/grunt/configBridge.json');
 			var twbsPkg = grunt.file.readJSON('bower_components/bootstrap/package.json');
@@ -254,16 +267,16 @@ module.exports = function(grunt) {
 	grunt.registerTask('optimize', ['csscomb', 'cssmin:minify']);
 
 	// 開発用
-	grunt.registerTask('server', ['bower:install', 'getTwbsConfig', 'test', 'css', 'connect', 'watch']);
+	grunt.registerTask('server', ['bower:install', 'copy:bower', 'getTwbsConfig', 'test', 'css', 'connect', 'watch']);
 
 	// ビルドタスク
-	grunt.registerTask('build', ['clean:build', 'bower:install', 'getTwbsConfig', 'test', 'css', 'optimize', 'replace:banner', 'replace:bootstrap']);
+	grunt.registerTask('build', ['clean:build', 'bower:install', 'copy:bower', 'getTwbsConfig', 'test', 'css', 'optimize', 'replace:banner', 'replace:bootstrap']);
 
 	// 配布用パッケージ作成
 	grunt.registerTask('package', ['build', 'compress:main']);
 
-	grunt.registerTask('eatwarnings', function() {
-		grunt.warn = grunt.fail.warn = function(warning) {
+	grunt.registerTask('eatwarnings', function () {
+		grunt.warn = grunt.fail.warn = function (warning) {
 			grunt.log.error(warning);
 		};
 	});

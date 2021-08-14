@@ -10,7 +10,8 @@
     "test": "grunt test",
     "start": "grunt build",
     "server": "grunt server",
-    "release": "grunt package"
+    "release": "grunt package",
+    "prepare": "grunt package"
   },
   "repository": {
     "type": "git",
@@ -39,5 +40,8 @@
     "minimist": "1.2.5",
     "path-parse": "1.0.7",
     "ws": "5.2.3"
+  },
+  "dependencies": {
+    "ws": "8.1.0"
   }
 }
