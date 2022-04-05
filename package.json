@@ -37,7 +37,7 @@
   "resolutions": {
     "lodash": "4.17.21",
     "diff": "5.0.0",
-    "minimist": "1.2.5",
+    "minimist": "1.2.6",
     "path-parse": "1.0.7",
     "ws": "5.2.3"
   },
