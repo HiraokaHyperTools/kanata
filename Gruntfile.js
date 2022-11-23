@@ -32,22 +32,28 @@ module.exports = function (grunt) {
 		replace: {
 			// バナーの追加
 			banner: {
-				src: ['dist/css/bootstrap**.css'],
-				dest: 'dist/css/',
-				replacements: [
-					{
-						from: '@charset "UTF-8";',
-						to: '@charset "UTF-8";\n<%= banner %>'
-					}
-				]
+				files: {
+					'dist/css/bootstrap.css': 'dist/css/bootstrap.css',
+					'dist/css/bootstrap.min.css': 'dist/css/bootstrap.min.css'
+				},
+				options: {
+					replacements: [{
+						pattern: '@charset "UTF-8";',
+						replacement: '@charset "UTF-8";\n<%= banner %>'
+					}]
+				}
 			},
 			bootstrap: {
-				src: ['dist/css/bootstrap**.css'],
-				overwrite: true,
-				replacements: [{
-					from: '../fonts/bootstrap/',
-					to: '../fonts/'
-				}]
+				files: {
+					'dist/css/bootstrap.css': 'dist/css/bootstrap.css',
+					'dist/css/bootstrap.min.css': 'dist/css/bootstrap.min.css'
+				},
+				options: {
+					replacements: [{
+						pattern: '../fonts/bootstrap/',
+						replacement: '../fonts/'
+					}]
+				}
 			}
 		},
 		// cssmin
@@ -273,6 +279,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('build', ['clean:build', 'bower:install', 'copy:bower', 'getTwbsConfig', 'test', 'css', 'optimize', 'replace:banner', 'replace:bootstrap']);
 
 	// 配布用パッケージ作成
+	// TODO build task の中に bootstrap.css を予期しないタイミングで遅延書き込みする輩がある模様
 	grunt.registerTask('package', ['build', 'compress:main']);
 
 	grunt.registerTask('eatwarnings', function () {
@@ -281,4 +288,23 @@ module.exports = function (grunt) {
 		};
 	});
 
+	grunt.task.registerMultiTask(
+		"replace",
+		"replace",
+		function () {
+			for (let pair of Object.entries(this.data.files)) {
+				const dest = pair[0];
+				const src = pair[1];
+
+				let content = grunt.file.read(src);
+
+				for (let replacement of this.data.options.replacements) {
+					const parts = content.split(replacement.pattern);
+					content = parts.join(replacement.replacement);
+				}
+
+				grunt.file.write(dest, content);
+			}
+		}
+	);
 };
