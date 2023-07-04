@@ -279,7 +279,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('build', ['clean:build', 'bower:install', 'copy:bower', 'getTwbsConfig', 'test', 'css', 'optimize', 'replace:banner', 'replace:bootstrap']);
 
 	// 配布用パッケージ作成
-	// TODO build task の中に bootstrap.css を予期しないタイミングで遅延書き込みする輩がある模様
+	// TODO build task の中に bootstrap.css を予期しないタイミングで遅延書き込みする輩がある模様 あるいは Node.js v14.17.3 の問題
 	grunt.registerTask('package', ['build', 'compress:main']);
 
 	grunt.registerTask('eatwarnings', function () {
