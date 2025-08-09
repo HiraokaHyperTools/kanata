@@ -2,15 +2,13 @@
 
 module.exports = function (grunt) {
 
-	var pkg, bower, taskName, name;
+	var pkg, taskName, name;
 
 	pkg = grunt.file.readJSON('package.json');
-	bower = grunt.file.readJSON('bower.json');
 	name = pkg.name.toLowerCase();
 
 	grunt.initConfig({
 		pkg: pkg,
-		bowerJSON: bower,
 		banner: '/*!\n' +
 			' * <%= pkg.name %> v<%= pkg.version %>\n' +
 			' * Website <%= pkg.website %>\n' +
@@ -78,7 +76,7 @@ module.exports = function (grunt) {
 				unixNewlines: true,
 				style: 'expanded',
 				bundleExec: true,
-				loadPath: ['bower_components/bootstrap-sass/assets/stylesheets/']
+				loadPath: ['vendor/bootstrap-sass/assets/stylesheets/']
 			},
 			bootstrap: {
 				files: [{
@@ -104,7 +102,7 @@ module.exports = function (grunt) {
 		},
 		csscomb: {
 			options: {
-				config: 'bower_components/bootstrap/less/.csscomb.json'
+				config: 'vendor/bootstrap/less/.csscomb.json'
 			},
 			bootstrap: {
 				files: {
@@ -147,14 +145,7 @@ module.exports = function (grunt) {
 		// clean
 		clean: {
 			build: {
-				src: ['bower_components/**/*', 'dist/css/**/*', 'dist/js/**/*', 'dist/fonts/**/*']
-			}
-		},
-		// bowerのインストール
-		bower: {
-			install: {
-				options: {
-				}
+				src: ['dist/css/**/*', 'dist/js/**/*', 'dist/fonts/**/*']
 			}
 		},
 		// コピー
@@ -162,7 +153,7 @@ module.exports = function (grunt) {
 			bower: {
 				files: [
 					{
-						cwd: 'bower_components/bootstrap/dist',
+						cwd: 'vendor/bootstrap/dist',
 						src: [
 							'js/bootstrap.js',
 							'js/bootstrap.min.js',
@@ -246,8 +237,8 @@ module.exports = function (grunt) {
 	// 本家Bootstrapのautoprefixerの設定を読み込む
 	grunt.task.registerTask('getTwbsConfig', 'Get config from bootstrap', function () {
 		try {
-			var configBridge = grunt.file.readJSON('bower_components/bootstrap/grunt/configBridge.json');
-			var twbsPkg = grunt.file.readJSON('bower_components/bootstrap/package.json');
+			var configBridge = grunt.file.readJSON('vendor/bootstrap/grunt/configBridge.json');
+			var twbsPkg = grunt.file.readJSON('vendor/bootstrap/package.json');
 			grunt.verbose.ok();
 		} catch (e) {
 			grunt.verbose.or.write("Loading Bootstrap config...").error().error(e.message);
@@ -273,10 +264,10 @@ module.exports = function (grunt) {
 	grunt.registerTask('optimize', ['csscomb', 'cssmin:minify']);
 
 	// 開発用
-	grunt.registerTask('server', ['bower:install', 'copy:bower', 'getTwbsConfig', 'test', 'css', 'connect', 'watch']);
+	grunt.registerTask('server', ['copy:bower', 'getTwbsConfig', 'test', 'css', 'connect', 'watch']);
 
 	// ビルドタスク
-	grunt.registerTask('build', ['clean:build', 'bower:install', 'copy:bower', 'getTwbsConfig', 'test', 'css', 'optimize', 'replace:banner', 'replace:bootstrap']);
+	grunt.registerTask('build', ['clean:build', 'copy:bower', 'getTwbsConfig', 'test', 'css', 'optimize', 'replace:banner', 'replace:bootstrap']);
 
 	// 配布用パッケージ作成
 	// TODO build task の中に bootstrap.css を予期しないタイミングで遅延書き込みする輩がある模様 あるいは Node.js v14.17.3 の問題

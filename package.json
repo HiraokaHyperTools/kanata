@@ -5,46 +5,36 @@
   "author": "Logue",
   "website": "http://logue.github.io/Kanata",
   "license": "MIT",
-  "main": "Gruntfile.js",
+  "type": "module",
   "scripts": {
-    "test": "grunt test",
-    "start": "grunt build",
-    "server": "grunt server",
-    "release": "grunt package",
-    "prepare": "grunt package"
+    "dev": "vite",
+    "build": "npm run clean && vite build",
+    "preview": "vite preview",
+    "test": "stylelint \"scss/**/*.scss\" \"src/scss/**/*.scss\"",
+    "lint": "stylelint \"scss/**/*.scss\" \"src/scss/**/*.scss\"",
+    "clean": "rimraf dist",
+    "copy-assets": "node scripts/copy-assets.js",
+    "package": "npm run build && npm run compress",
+    "compress": "node scripts/compress.js",
+    "serve": "npm run dev"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/logue/Kanata.git"
   },
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^5.0.0",
+    "archiver": "^7.0.0",
     "autoprefixer": "^10.4.5",
-    "bower": "^1.8.14",
-    "grunt": "^1.5.3",
-    "grunt-autoprefixer": "^3.0.4",
-    "grunt-bower-task": "^0.6.2",
-    "grunt-cli": "^1.4.3",
-    "grunt-contrib-clean": "^2.0.1",
-    "grunt-contrib-compress": "^2.0.0",
-    "grunt-contrib-connect": "^3.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^4.0.0",
-    "grunt-contrib-sass": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-csscomb": "^4.2.0",
-    "grunt-scss-lint": "^0.5.0"
-  },
-  "resolutions": {
-    "lodash": "4.17.21",
-    "diff": "5.0.0",
-    "minimist": "1.2.6",
-    "path-parse": "1.0.7",
-    "ws": "5.2.3",
-    "minimatch": "3.0.8",
-    "semver": "7.5.2",
-    "postcss": "8.4.31"
-  },
-  "dependencies": {
-    "ws": "8.17.1"
+    "glob": "^10.0.0",
+    "lightningcss": "^1.30.1",
+    "postcss": "^8.4.31",
+    "rimraf": "^5.0.0",
+    "sass": "^1.90.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard-scss": "^13.0.0",
+    "stylelint-scss": "^6.0.0",
+    "terser": "^5.43.1",
+    "vite": "^5.0.0"
   }
 }
