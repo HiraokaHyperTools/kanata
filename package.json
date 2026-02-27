@@ -1,6 +1,6 @@
 {
-  "name": "Kanata",
-  "version": "3.3.6-b",
+  "name": "kanata",
+  "version": "3.3.7-3",
   "description": "Kanata a fork of Honoka which is a Bootstrap theme.",
   "author": "Logue",
   "website": "http://logue.github.io/Kanata",
@@ -10,27 +10,41 @@
     "test": "grunt test",
     "start": "grunt build",
     "server": "grunt server",
-    "release": "grunt package"
+    "release": "grunt package",
+    "prepare": "grunt package"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/logue/Kanata.git"
   },
   "devDependencies": {
-    "bower": "^1.7.7",
-    "grunt": "^0.4.5",
+    "autoprefixer": "^10.4.5",
+    "bower": "^1.8.14",
+    "grunt": "^1.5.3",
     "grunt-autoprefixer": "^3.0.4",
-    "grunt-bower-task": "^0.4.0",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-compress": "^1.0.0",
-    "grunt-contrib-connect": "^1.0.1",
+    "grunt-bower-task": "^0.6.2",
+    "grunt-cli": "^1.4.3",
+    "grunt-contrib-clean": "^2.0.1",
+    "grunt-contrib-compress": "^2.0.0",
+    "grunt-contrib-connect": "^3.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^1.0.1",
-    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-sass": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-csscomb": "^3.1.0",
-    "grunt-scss-lint": "^0.3.8",
-    "grunt-text-replace": "^0.4.0"
+    "grunt-csscomb": "^4.2.0",
+    "grunt-scss-lint": "^0.5.0"
+  },
+  "resolutions": {
+    "lodash": "4.17.21",
+    "diff": "5.0.0",
+    "minimist": "1.2.6",
+    "path-parse": "1.0.7",
+    "ws": "5.2.3",
+    "minimatch": "3.0.8",
+    "semver": "7.5.2",
+    "postcss": "8.4.31"
+  },
+  "dependencies": {
+    "ws": "8.17.1"
   }
 }

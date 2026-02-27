@@ -264,8 +264,8 @@ input[type="radio"],
 		outline: none;
 	}
 
-	&:before,
-	&:after {
+	&::before,
+	&::after {
 		display: block;
 		width: 18px;
 		height: 18px;
@@ -274,7 +274,7 @@ input[type="radio"],
 		@include transition(240ms);
 	}
 
-	&:before {
+	&::before {
 		position: absolute;
 		top: -3px;
 		left: 0;
@@ -282,26 +282,26 @@ input[type="radio"],
 		@include scale(0);
 	}
 
-	&:after {
+	&::after {
 		position: relative;
 		top: -3px;
 		border: 2px solid $gray;
 	}
 
-	&:checked:before {
+	&:checked::before {
 		@include scale(0.5);
 	}
 
-	&:disabled:checked:before {
+	&:disabled:checked::before {
 		background-color: $gray-light;
 	}
 
-	&:checked:after {
+	&:checked::after {
 		border-color: $brand-primary;
 	}
 
-	&:disabled:after,
-	&:disabled:checked:after {
+	&:disabled::after,
+	&:disabled:checked::after {
 		border-color: $gray-light;
 	}
 }
@@ -320,11 +320,11 @@ input[type="checkbox"],
 		outline: none;
 	}
 
-	&:focus:after {
+	&:focus::after {
 		border-color: $brand-primary;
 	}
 
-	&:after {
+	&::after {
 		display: block;
 		width: 18px;
 		height: 18px;
@@ -336,7 +336,7 @@ input[type="checkbox"],
 		@include transition(240ms);
 	}
 
-	&:checked:before {
+	&:checked::before {
 		position: absolute;
 		top: 0;
 		left: 6px;
@@ -350,16 +350,16 @@ input[type="checkbox"],
 		@include rotate(45deg);
 	}
 
-	&:checked:after {
+	&:checked::after {
 		background-color: $brand-primary;
 		border-color: $brand-primary;
 	}
 
-	&:disabled:after {
+	&:disabled::after {
 		border-color: $gray-light;
 	}
 
-	&:disabled:checked:after {
+	&:disabled:checked::after {
 		background-color: $gray-light;
 		border-color: transparent;
 	}
@@ -439,30 +439,30 @@ input[type="checkbox"],
 		}
 	}
 
-	& > li.active > a,
-	& > li.active > a:focus {
+	> li.active > a,
+	> li.active > a:focus {
+		color: $brand-primary;
 		border: 0;
 		@include box-shadow(inset 0 -2px 0 $brand-primary);
-		color: $brand-primary;
 
 		&:hover {
-			border: 0;
 			color: $brand-primary;
+			border: 0;
 		}
 	}
 
-	& > li.disabled > a {
+	> li.disabled > a {
 		@include box-shadow(inset 0 -1px 0 #ddd);
 	}
 
 	&.nav-justified {
 
-		& > li > a,
-		& > li > a:hover,
-		& > li > a:focus,
-		& > .active > a,
-		& > .active > a:hover,
-		& > .active > a:focus {
+		> li > a,
+		> li > a:hover,
+		> li > a:focus,
+		> .active > a,
+		> .active > a:hover,
+		> .active > a:focus {
 			border: 0;
 		}
 	}
@@ -481,8 +481,8 @@ input[type="checkbox"],
 // Indicators =================================================================
 
 .alert {
-	border: 0;
 	color: #fff;
+	border: 0;
 
 	&-success {
 		background-color: $brand-success;
@@ -502,8 +502,8 @@ input[type="checkbox"],
 
 	a:not(.close):not(.btn),
 	.alert-link {
-		color: #fff;
 		font-weight: bold;
+		color: #fff;
 	}
 
 	.close {
@@ -531,7 +531,7 @@ input[type="checkbox"],
 		}
 
 		&:last-child {
-			&:before {
+			&::before {
 				position: absolute;
 				right: 0;
 				left: 0;
@@ -544,18 +544,18 @@ input[type="checkbox"],
 			}
 		}
 
-		&-success:last-child.progress-bar:before {
+		&-success:last-child.progress-bar::before {
 			background-color: lighten($brand-success, 35%);
 		}
 
-		&-info:last-child.progress-bar:before {
+		&-info:last-child.progress-bar::before {
 			background-color: lighten($brand-info, 45%);
 		}
-		&-warning:last-child.progress-bar:before {
+		&-warning:last-child.progress-bar::before {
 			background-color: lighten($brand-warning, 35%);
 		}
 
-		&-danger:last-child.progress-bar:before {
+		&-danger:last-child.progress-bar::before {
 			background-color: lighten($brand-danger, 25%);
 		}
 	}
