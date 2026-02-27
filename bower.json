@@ -1,5 +1,5 @@
 {
-  "name": "Kanata",
+  "name": "kanata",
   "description": "Kanata is one of the Bootstrap original theme.",
   "keywords": [
     "css",
@@ -12,7 +12,7 @@
     "framework",
     "web"
   ],
-  "author": "logue",
+  "author": "logue and kenjiuno",
   "homepage": "https://logue.be/",
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
   "license": "MIT",
   "moduleType": "globals",
   "main": [
-    "dist/css/bootstrap.min.css"
+    "dist/js/bootstrap.js",
+    "dist/css/bootstrap.css"
   ],
   "ignore": [
     "/.*",
@@ -32,8 +33,8 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "bootstrap": "3.3.6",
-    "bootstrap-sass": "3.3.6"
+    "bootstrap": "3.3.7",
+    "bootstrap-sass": "3.3.7"
   },
   "exportsOverride": {
     "bootstrap-sass": {},
